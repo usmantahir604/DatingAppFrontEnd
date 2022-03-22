@@ -9,6 +9,6 @@ baseUrl='http://localhost:23470/api/';
   constructor(private http:HttpClient) { }
 
   login(model:any){
-    return this.http.post(this.baseUrl,model);
+    return this.http.post(this.baseUrl+'account/login',model);
   }
 }
