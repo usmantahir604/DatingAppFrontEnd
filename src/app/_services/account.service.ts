@@ -25,6 +25,18 @@ currentUser$=this.currentUserSource.asObservable();
     );
   }
 
+  register(model:any){
+    return this.http.post(this.baseUrl+'account/register',model).pipe(
+      map((response:any)=>{
+        if(response && response.isSuccess){
+          const user:User=response.result;
+          localStorage.setItem('user',JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+      })
+    );
+  }
+
   setCurrentUser(user:User){
     this.currentUserSource.next(user);
   }
