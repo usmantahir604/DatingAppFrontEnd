@@ -26,6 +26,7 @@ export class TestErrorsComponent implements OnInit {
     this.http.get(this.baseUrl + 'buggy/bad-request').subscribe(response => {
       console.log(response);
     }, error => {
+      debugger;
       console.log(error);
     })
   }
@@ -50,6 +51,7 @@ export class TestErrorsComponent implements OnInit {
     this.http.post(this.baseUrl + 'account/register', {}).subscribe(response => {
       console.log(response);
     }, error => {
+      
       console.log(error);
       this.validationErrors = error;
     })
