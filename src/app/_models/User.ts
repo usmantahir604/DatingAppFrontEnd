@@ -1,5 +1,5 @@
 export interface User{
-    email:String;
+    userName:String;
     token:string;
     refreshToken:string
 }
