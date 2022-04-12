@@ -16,6 +16,6 @@ export class MembersService {
   }
 
   getMember(username:string){
-    return this.http.get<ApplicationUserModel>(this.baseUrl+'Users/GetUser'+username);
+    return this.http.get<ApplicationUserModel>(this.baseUrl+'Users/'+username);
   }
 }
