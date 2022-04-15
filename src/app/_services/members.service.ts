@@ -18,4 +18,8 @@ export class MembersService {
   getMember(username:string){
     return this.http.get<ApplicationUserModel>(this.baseUrl+'Users/'+username);
   }
+
+  updateMember(member:ApplicationUserModel){
+    return this.http.put(this.baseUrl+'Users',member);
+  }
 }
