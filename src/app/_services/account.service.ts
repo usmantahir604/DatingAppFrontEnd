@@ -19,8 +19,7 @@ currentUser$=this.currentUserSource.asObservable();
       map((response:any)=>{
         if(response && response.isSuccess){
           const user:User=response.result;
-          localStorage.setItem('user',JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);  
         }
       })
     );
@@ -31,14 +30,14 @@ currentUser$=this.currentUserSource.asObservable();
       map((response:any)=>{
         if(response && response.isSuccess){
           const user:User=response.result;
-          localStorage.setItem('user',JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);  
         }
       })
     );
   }
 
   setCurrentUser(user:User){
+    localStorage.setItem('user',JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
