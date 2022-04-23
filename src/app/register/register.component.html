@@ -3,8 +3,14 @@
     <h2 class="text-center text-primary"></h2>
     <hr>
     <div class="form-group">
-        <input class="form-control" type="text" formControlName="userName" 
+        <input 
+        [class.is-invalid]='registerForm.get("userName").errors
+        && registerForm.get("userName").touched'
+        class="form-control"
+        type="text"
+        formControlName="userName" 
         placeholder="Username">
+        <div class="invalid-feedback">Please enter a username</div>
     </div>
 
     <!-- <div class="form-group">
@@ -17,10 +23,32 @@
     </div> -->
 
     <div class="form-group">
-        <input class="form-control" type="password" formControlName="password"  placeholder="Password">
+        <input 
+        [class.is-invalid]='registerForm.get("password").errors
+        && registerForm.get("password").touched'
+        class="form-control"
+        type="password"
+        formControlName="password"
+        placeholder="Password">
+        <div *ngIf='registerForm.get("password").hasError("required")'
+         class="invalid-feedback">Please enter a password</div>
+         <div *ngIf='registerForm.get("password").hasError("minlength")'
+         class="invalid-feedback">Password must atleast 6 charcters</div>
+         <div *ngIf='registerForm.get("password").hasError("maxlength")'
+         class="invalid-feedback">Password must atmost 8 charcters</div>
     </div>
     <div class="form-group">
-        <input class="form-control" type="password" formControlName="confirmPassword"  placeholder="Cofirm Password">
+        <input 
+        [class.is-invalid]='registerForm.get("confirmPassword").errors
+        && registerForm.get("confirmPassword").touched'
+         class="form-control"
+         type="password" 
+         formControlName="confirmPassword"
+         placeholder="Cofirm Password">
+         <div *ngIf='registerForm.get("confirmPassword").hasError("required")'
+         class="invalid-feedback">Please enter a confirm password</div>
+         <div *ngIf='registerForm.get("confirmPassword").hasError("isMatching")'
+         class="invalid-feedback">Confirm password must match password</div>
     </div>
     <div class="form-group text-center">
         <button class="btn btn-success mr-2" type="submit">Register</button>
