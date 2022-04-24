@@ -14,10 +14,13 @@ model:any={};
 registerForm: FormGroup;
 // @Input() UserFromHomeComponent:any;
 @Output() cancelRegister=new EventEmitter();
+maxDate:Date;
   constructor(private accountService:AccountService, private toastr: ToastrService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.intializeForm();
+    this.maxDate=new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear()-18);
   }
 
   intializeForm(){
