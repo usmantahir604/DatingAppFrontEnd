@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApplicationUserModel } from 'src/app/_models/applicationusermodel';
+import { Pagination } from 'src/app/_models/pagination';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -9,11 +10,21 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent implements OnInit {
-members$: Observable<ApplicationUserModel[]>;
+members: ApplicationUserModel[];
+pagination:Pagination;
+pageNumber=1;
+pageSize=5;
+
   constructor(private memberService: MembersService) { }
 
   ngOnInit(): void {
-    this.members$=this.memberService.getMembers();
+    this.loadMembers();
   }
-
+  loadMembers(){
+    debugger;
+    this.memberService.getMembers(this.pageNumber,this.pageSize).subscribe((response)=>{
+      this.members=response.result;
+      this.pagination=response.pagination;
+    });
+  }
 }
