@@ -21,10 +21,14 @@ pageSize=5;
     this.loadMembers();
   }
   loadMembers(){
-    debugger;
     this.memberService.getMembers(this.pageNumber,this.pageSize).subscribe((response)=>{
       this.members=response.result;
       this.pagination=response.pagination;
     });
+  }
+
+  pageChanged(event:any){
+    this.pageNumber=event.page;
+    this.loadMembers();
   }
 }
