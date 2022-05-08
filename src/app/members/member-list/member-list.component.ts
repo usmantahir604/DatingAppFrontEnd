@@ -30,10 +30,10 @@ genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: '
   }
   loadMembers(){
     this.memberService.setUserParams(this.userParams);
-    this.memberService.getMembers(this.userParams).subscribe((response)=>{
-      this.members=response.result;
-      this.pagination=response.pagination;
-    });
+    this.memberService.getMembers(this.userParams).subscribe(response => {
+      this.members = response.result;
+      this.pagination = response.pagination;
+    })
   }
 
   pageChanged(event:any){

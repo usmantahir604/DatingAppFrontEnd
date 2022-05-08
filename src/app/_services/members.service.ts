@@ -40,23 +40,27 @@ export class MembersService {
     this.userParams=new UserParams(this.user);
     return this.userParams;
   }
-  getMembers(userParams:UserParams){
-    var response=this.memberCache.get(Object.values(userParams).join('-'));
-    if(response){
+  getMembers(userParams: UserParams) {
+    var response = this.memberCache.get(Object.values(userParams).join('-'));
+    if (response) {
       return of(response);
     }
+
     let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
-    params=params.append('minAge',userParams.minAge.toString());
-    params=params.append('maxAge',userParams.maxAge.toString());
-    params=params.append('gender',userParams.gender);
-    params=params.append('orderBy',userParams.orderBy);
-    return this.GetPaginatedResult<ApplicationUserModel[]>(this.baseUrl+'users',params)
-    .pipe(map(response=>{
-      this.memberCache.set(Object.values(userParams).join('-'),response)
-    }));
+
+    params = params.append('minAge', userParams.minAge.toString());
+    params = params.append('maxAge', userParams.maxAge.toString());
+    params = params.append('gender', userParams.gender);
+    params = params.append('orderBy', userParams.orderBy);
+
+    return this.getPaginatedResult<ApplicationUserModel[]>(this.baseUrl + 'users', params)
+      .pipe(map(response => {
+        this.memberCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      }))
   }
 
-  private GetPaginatedResult<T>(url, params) {
+  private getPaginatedResult<T>(url, params) {
     const paginatedResult: PaginatedResult<T>=new PaginatedResult<T>();
     return this.http.get<T>(url, { observe: 'response', params })
       .pipe(map(response => {
@@ -75,15 +79,15 @@ export class MembersService {
     return params;
   }
 
-  getMember(username:string){
-    const member=[...this.memberCache.values()]
-      .reduce((arr,elem)=>arr.concat(elem.result),[])
-      .find((member:ApplicationUserModel)=>member.username===username);
-      if(member)
-      {
-        return of(member);
-      }
-    return this.http.get<ApplicationUserModel>(this.baseUrl+'Users/'+username);
+  getMember(username: string) {
+    const member = [...this.memberCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((member: ApplicationUserModel) => member.username === username);
+
+    if (member) {
+      return of(member);
+    }
+    return this.http.get<ApplicationUserModel>(this.baseUrl + 'users/' + username);
   }
 
   updateMember(member:ApplicationUserModel){
