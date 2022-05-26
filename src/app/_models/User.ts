@@ -5,4 +5,5 @@ export interface User{
     refreshToken:string;
     knownAs:string;
     gender:string;
+    roles:string[];
 }
