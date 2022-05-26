@@ -1,7 +1,7 @@
 import { PhotoModel } from "./photo";
 
 export interface ApplicationUserModel {
-    id: string;
+    id: number;
     username: string;
     photoUrl: string;
     age: number;
